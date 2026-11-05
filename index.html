@@ -3,293 +3,263 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GUDU MART - REAL CASHIER POS</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+<title>GUDU MART - CASHIER POS</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
-body{background:#0f172a;color:#0f172a;height:100vh;overflow:hidden;display:flex;flex-direction:column}
+body{background:#eef2f7;height:100vh;overflow:hidden;display:flex;flex-direction:column}
 header{background:#0f172a;color:white;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #22c55e}
-.logo{font-size:22px;font-weight:900;letter-spacing:-.5px} .logo span{color:#22c55e}
-.logo small{display:block;font-size:10px;color:#94a3b8;font-weight:600;letter-spacing:2px}
+.logo{font-size:22px;font-weight:900} .logo span{color:#22c55e} .logo small{display:block;font-size:10px;color:#94a3b8;letter-spacing:2px;font-weight:600}
 .h-right{display:flex;gap:8px;align-items:center}
-.h-right .pill{background:#1e293b;padding:8px 14px;border-radius:20px;font-size:12px;font-weight:700}
-.h-right .pill b{color:#22c55e}
+.h-right .pill{background:#1e293b;padding:9px 14px;border-radius:20px;font-size:12px;font-weight:700} .h-right .pill b{color:#22c55e}
 .h-btn{padding:10px 16px;border-radius:20px;border:none;font-weight:800;cursor:pointer;font-size:13px}
-.main{flex:1;display:flex;overflow:hidden;background:#eef2f7}
+.main{flex:1;display:flex;overflow:hidden}
 .left{flex:1;display:flex;flex-direction:column;padding:12px;overflow:hidden}
-.search-row{display:flex;gap:10px}
-.search-box{flex:1;position:relative;background:white;border:2px solid #0f172a;border-radius:14px;display:flex;align-items:center;padding:0 12px}
-.search-box span{font-size:20px} .search-box input{flex:1;border:none;outline:none;padding:14px 10px;font-size:16px;font-weight:700}
-.search-box input::placeholder{font-weight:500;color:#94a3b8}
-.barcode-btn{background:#f59e0b;color:white;padding:0 18px;border-radius:14px;border:none;font-weight:900;font-size:13px;cursor:pointer}
-.cats{display:flex;gap:8px;overflow-x:auto;padding:12px 2px;scrollbar-width:none}
+.top-info{display:flex;gap:8px;margin-bottom:10px}
+.top-info .box{flex:1;background:white;border:1px solid #e2e8f0;border-radius:12px;padding:9px;text-align:center}
+.top-info .box b{font-size:16px;display:block} .top-info .box span{font-size:10px;color:#64748b;font-weight:700}
+/* CATEGORY - BADE BUTTONS */
+.cats{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px;scrollbar-width:none}
 .cats::-webkit-scrollbar{display:none}
-.cat-btn{min-width:105px;padding:12px 10px;border-radius:14px;border:1px solid #e2e8f0;background:white;cursor:pointer;text-align:center;flex-shrink:0}
-.cat-btn.active{background:#0f172a;color:white;border-color:#0f172a;transform:scale(1.03);box-shadow:0 6px 18px rgba(0,0,0,.2)}
-.cat-btn .e{font-size:24px;display:block} .cat-btn b{font-size:12px} .cat-btn small{display:block;font-size:10px;opacity:.7}
-.products{flex:1;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:11px;align-content:start;padding-bottom:16px}
-.p-card{background:white;border-radius:18px;padding:12px;cursor:pointer;border:2px solid transparent;position:relative;transition:.12s}
-.p-card:hover{border-color:#22c55e;transform:translateY(-2px);box-shadow:0 10px 25px rgba(0,0,0,.12)}
+.cat-btn{min-width:110px;padding:12px 10px;border-radius:14px;border:2px solid #e2e8f0;background:white;cursor:pointer;text-align:center;flex-shrink:0}
+.cat-btn.active{background:#0f172a;color:white;border-color:#0f172a;box-shadow:0 6px 18px rgba(0,0,0,.25);transform:scale(1.04)}
+.cat-btn .e{font-size:26px;display:block} .cat-btn b{font-size:13px} .cat-btn small{display:block;font-size:11px;opacity:.7}
+/* SEARCH - CHHOTA, OPTIONAL */
+.search-row{display:flex;gap:8px;margin-bottom:10px}
+.search-row input{flex:1;padding:11px 14px;border:1px solid #cbd5e1;border-radius:12px;outline:none;font-size:14px;background:white}
+.search-row button{background:#0f172a;color:white;padding:0 16px;border-radius:12px;border:none;font-weight:700;cursor:pointer}
+/* PRODUCTS - SAB DIKHEGA */
+.products{flex:1;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:10px;align-content:start;padding-bottom:10px}
+.p-card{background:white;border-radius:16px;padding:11px;cursor:pointer;border:2px solid transparent;transition:.1s}
+.p-card:hover{border-color:#22c55e;transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.1)}
 .p-card:active{transform:scale(.97)}
 .p-card .top{display:flex;justify-content:space-between;align-items:start}
-.p-card .emoji{font-size:42px}
+.p-card .emoji{font-size:38px}
 .p-card .off{background:#ef4444;color:white;font-size:10px;font-weight:900;padding:4px 7px;border-radius:20px}
-.p-card h4{font-size:13.5px;line-height:1.3;min-height:36px;margin:8px 0 2px}
+.p-card h4{font-size:13px;line-height:1.25;min-height:34px;margin:7px 0 2px}
 .p-card .barcode{font-family:'JetBrains Mono',monospace;font-size:10px;color:#94a3b8}
-.p-card .cat-tag{font-size:10px;background:#f1f5f9;padding:3px 8px;border-radius:20px;color:#64748b;font-weight:700}
-.p-card .price-row{display:flex;align-items:baseline;gap:6px;margin-top:8px}
-.p-card .price{font-size:18px;font-weight:900;color:#16a34a} .p-card .mrp{font-size:12px;color:#94a3b8;text-decoration:line-through}
-.p-card .stock{font-size:11px;color:#64748b;margin-top:2px}
-.p-card .add{margin-top:10px;background:#0f172a;color:white;padding:10px;border-radius:12px;text-align:center;font-weight:800;font-size:13px}
-.p-card .add span{color:#22c55e}
-.right{width:440px;background:white;display:flex;flex-direction:column;border-left:1px solid #e2e8f0;flex-shrink:0}
-.bill-top{background:#0f172a;color:white;padding:14px}
-.bill-top .row1{display:flex;justify-content:space-between;align-items:center}
-.bill-top h3{font-size:17px} .bill-top h3 span{color:#22c55e}
-.bill-top p{font-size:11px;opacity:.7;margin-top:2px}
-.bill-top input{width:100%;padding:10px 12px;border:none;border-radius:10px;margin-top:8px;outline:none;font-size:13px;font-weight:600}
-.bill-top .row2{display:flex;gap:8px}
+.p-card .price-row{display:flex;gap:6px;align-items:baseline;margin-top:7px}
+.p-card .price{font-size:17px;font-weight:900;color:#16a34a} .p-card .mrp{font-size:11px;color:#94a3b8;text-decoration:line-through}
+.p-card .save{font-size:11px;color:#16a34a;font-weight:700}
+.p-card .add{margin-top:9px;background:#0f172a;color:white;padding:9px;border-radius:11px;text-align:center;font-weight:800;font-size:12px}
+.right{width:430px;background:white;display:flex;flex-direction:column;border-left:1px solid #e2e8f0;flex-shrink:0}
+.bill-top{background:#0f172a;color:white;padding:13px}
+.bill-top h3{font-size:16px} .bill-top h3 span{color:#22c55e} .bill-top p{font-size:11px;opacity:.7}
+.bill-top input{width:100%;padding:10px;border:none;border-radius:10px;margin-top:7px;outline:none;font-size:13px;font-weight:600}
 .pay-tabs{display:flex;gap:6px;margin-top:10px}
-.pay-tabs button{flex:1;padding:10px;border-radius:20px;border:1px solid rgba(255,255,255,.3);background:transparent;color:white;font-weight:800;font-size:12px;cursor:pointer}
+.pay-tabs button{flex:1;padding:9px;border-radius:20px;border:1px solid rgba(255,255,255,.3);background:transparent;color:white;font-weight:800;font-size:12px;cursor:pointer}
 .pay-tabs button.active{background:#22c55e;border-color:#22c55e}
 .bill-items{flex:1;overflow-y:auto;padding:10px;background:#f8fafc}
-.bill-item{display:flex;gap:10px;background:white;padding:10px;border-radius:14px;margin-bottom:8px;border:1px solid #e2e8f0;align-items:center}
-.bill-item .ic{font-size:26px;width:44px;height:44px;background:#f1f5f9;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.bill-item .info{flex:1} .bill-item .info b{font-size:13px;line-height:1.2;display:block} .bill-item .info span{font-size:11px;color:#64748b}
+.bill-item{display:flex;gap:10px;background:white;padding:10px;border-radius:13px;margin-bottom:8px;border:1px solid #e2e8f0;align-items:center}
+.bill-item .ic{font-size:24px;width:42px;height:42px;background:#f1f5f9;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.bill-item .info{flex:1} .bill-item .info b{font-size:13px;display:block;line-height:1.2} .bill-item .info span{font-size:11px;color:#64748b}
 .qty{display:flex;align-items:center;gap:4px;background:#f1f5f9;padding:4px;border-radius:20px}
-.qty button{width:28px;height:28px;border-radius:50%;border:none;background:white;font-weight:900;font-size:18px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.1)}
-.qty b{min-width:22px;text-align:center}
-.summary{padding:14px;background:white;border-top:2px solid #e2e8f0}
-.srow{display:flex;justify-content:space-between;font-size:13px;padding:4px 0;color:#475569}
-.srow.total{font-size:22px;font-weight:900;color:#0f172a;border-top:2px dashed #cbd5e1;margin-top:8px;padding-top:10px}
+.qty button{width:28px;height:28px;border-radius:50%;border:none;background:white;font-weight:900;font-size:18px;cursor:pointer}
+.qty b{min-width:20px;text-align:center}
+.summary{padding:13px;border-top:2px solid #e2e8f0}
+.srow{display:flex;justify-content:space-between;font-size:13px;padding:3px 0;color:#475569}
+.srow.total{font-size:21px;font-weight:900;color:#0f172a;border-top:2px dashed #cbd5e1;margin-top:6px;padding-top:8px}
 .srow.total span:last-child{color:#16a34a}
-.srow input{width:70px;padding:5px;border:1px solid #cbd5e1;border-radius:8px;text-align:right;font-weight:800}
-.quick-amt{display:flex;gap:6px;margin:10px 0}
-.quick-amt button{flex:1;padding:9px;border-radius:10px;border:1px solid #e2e8f0;background:#f8fafc;font-weight:800;font-size:12px;cursor:pointer}
-.quick-amt button:hover{background:#dcfce7}
-.actions{display:grid;grid-template-columns:1fr 1fr 2fr;gap:8px;margin-top:4px}
-.actions button{padding:14px;border-radius:14px;font-weight:900;border:none;cursor:pointer;font-size:13px}
-.btn-hold{background:#fef3c7;color:#92400e} .btn-clear{background:#fee2e2;color:#991b1b} .btn-pay{background:#16a34a;color:white;font-size:15px;box-shadow:0 6px 20px rgba(22,163,74,.3)}
-.bottom-actions{display:flex;gap:8px;margin-top:8px}
-.bottom-actions button{flex:1;padding:10px;border-radius:10px;border:1px solid #e2e8f0;background:white;font-weight:700;font-size:12px;cursor:pointer}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:100;padding:14px}
-.modal.show{display:flex}
+.srow input{width:65px;padding:4px;border:1px solid #cbd5e1;border-radius:8px;text-align:right;font-weight:800}
+.quick{display:flex;gap:6px;margin:9px 0}
+.quick button{flex:1;padding:9px;border-radius:10px;border:1px solid #e2e8f0;background:#f8fafc;font-weight:800;font-size:12px;cursor:pointer}
+.actions{display:grid;grid-template-columns:1fr 1fr 2fr;gap:8px}
+.actions button{padding:13px;border-radius:13px;font-weight:900;border:none;cursor:pointer;font-size:13px}
+.bottom{display:flex;gap:8px;margin-top:8px} .bottom button{flex:1;padding:9px;border-radius:10px;border:1px solid #e2e8f0;background:white;font-weight:700;font-size:12px;cursor:pointer}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:100;padding:14px} .modal.show{display:flex}
 .receipt-box{background:white;width:100%;max-width:380px;border-radius:10px;max-height:94vh;overflow-y:auto}
-.receipt{padding:20px;font-family:'JetBrains Mono',monospace}
-.receipt .dashed{border-top:1px dashed #000;margin:10px 0}
-.receipt table{width:100%;font-size:12px;border-collapse:collapse} .receipt th{border-bottom:1px dashed #000;padding:5px 0;text-align:left} .receipt td{padding:5px 0}
-.stats-bar{display:flex;gap:8px;padding:10px 14px;background:white;border-bottom:1px solid #e2e8f0}
-.stats-bar .st{flex:1;text-align:center;background:#f8fafc;border-radius:12px;padding:8px;border:1px solid #f1f5f9}
-.stats-bar .st b{font-size:16px;display:block} .stats-bar .st span{font-size:10px;color:#64748b;font-weight:700}
-@media(max-width:900px){.right{position:fixed;right:0;top:0;bottom:0;z-index:60;transform:translateX(100%);transition:.3s;box-shadow:-10px 0 30px rgba(0,0,0,.3)} .right.open{transform:none} body{overflow:auto} .main{height:auto} .products{grid-template-columns:repeat(2,1fr)}}
+.receipt{padding:20px;font-family:'JetBrains Mono',monospace} .receipt .dashed{border-top:1px dashed #000;margin:10px 0} .receipt table{width:100%;font-size:12px;border-collapse:collapse} .receipt th{border-bottom:1px dashed #000;padding:5px 0;text-align:left} .receipt td{padding:5px 0}
+@media(max-width:900px){.right{position:fixed;right:0;top:0;bottom:0;z-index:60;transform:translateX(100%);transition:.3s} .right.open{transform:none} body{overflow:auto} .main{height:auto} .products{grid-template-columns:repeat(2,1fr)}}
 @media print{body *{visibility:hidden} #printArea, #printArea *{visibility:visible} #printArea{position:absolute;left:0;top:0;width:100%}}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">🛒 GUDU <span>MART</span><small>SUPERMARKET • ELECTRONICS • PRO POS</small></div>
+  <div class="logo">🛒 GUDU <span>MART</span><small>SUPERMARKET • ELECTRONICS</small></div>
   <div class="h-right">
-    <div class="pill">Cashier: <b>RAHUL</b> • Counter 1 • <span id="clock">--:--</span></div>
+    <div class="pill">Cashier: <b>RAHUL</b> • <span id="clock">--:--</span></div>
     <button class="h-btn" onclick="openTickets()" style="background:#1e293b;color:white">📂 Tickets (<span id="ticketCountTop">0</span>)</button>
     <button class="h-btn" onclick="toggleCart()" style="background:#22c55e;color:white">🧾 Bill (<span id="cartCount">0</span>)</button>
   </div>
 </header>
 
-<div class="stats-bar">
-  <div class="st"><b id="statSale">₹0</b><span>TODAY SALE</span></div>
-  <div class="st"><b id="statBills">0</b><span>TOTAL BILLS</span></div>
-  <div class="st"><b id="statItems">0</b><span>ITEMS SOLD</span></div>
-  <div class="st"><b id="statProducts">0</b><span>PRODUCTS IN STORE</span></div>
-  <div class="st"><b id="statSaved">₹0</b><span>CUSTOMER SAVED</span></div>
-  <button onclick="addCustomProductPrompt()" style="background:#f59e0b;color:white;padding:10px 16px;border-radius:12px;border:none;font-weight:800;cursor:pointer">+ ADD PRODUCT</button>
-</div>
-
 <div class="main">
   <div class="left">
-    <div class="search-row">
-      <div class="search-box"><span>🔍</span><input id="searchInput" placeholder="Search... iPhone, dudh, chips, tv, atta, anda, sabun..." oninput="onSearch()"><button onclick="clearSearch()" style="background:#fee2e2;color:#991b1b;border:none;padding:6px 10px;border-radius:20px;font-weight:800;cursor:pointer;display:none" id="clearBtn">✕</button></div>
-      <button class="barcode-btn" onclick="barcodePrompt()">📷<br>SCAN</button>
+    <div class="top-info">
+      <div class="box"><b id="statSale">₹0</b><span>TODAY SALE</span></div>
+      <div class="box"><b id="statBills">0</b><span>BILLS</span></div>
+      <div class="box"><b id="statProducts">0</b><span>TOTAL PRODUCTS</span></div>
+      <div class="box"><b id="statSaved">₹0</b><span>CUSTOMER SAVED</span></div>
+      <button onclick="addCustomProductPrompt()" style="background:#f59e0b;color:white;padding:0 16px;border-radius:12px;border:none;font-weight:800;cursor:pointer">+ ADD PRODUCT</button>
     </div>
-    <div style="font-size:12px;color:#64748b;margin:8px 2px 0" id="searchHint">Tip: <b>iph</b> → iPhone, <b>dudh</b> → Milk, <b>chi</b> → Chips • Barcode bhi type kar sakte ho</div>
+
+    <!-- CATEGORY BUTTONS - SABSE UPAR -->
     <div class="cats" id="cats"></div>
+
+    <!-- SEARCH - OPTIONAL, CHHOTA -->
+    <div class="search-row">
+      <input id="searchInput" placeholder="Search (optional) - jaise iPhone, dudh... warna sab dikh raha hai 👇" oninput="onSearch()">
+      <button onclick="clearSearch()">✕ Clear</button>
+    </div>
+    <div style="font-size:12px;color:#64748b;margin-bottom:8px" id="searchHint">👇 <b>Sab products neeche dikh rahe hai</b> - bas click karo, bill me add ho jayega. Category dabao to filter ho jayega.</div>
+
+    <!-- SAB PRODUCTS YAHAN -->
     <div class="products" id="products"></div>
   </div>
 
   <div class="right" id="cartPanel">
     <div class="bill-top">
-      <div class="row1"><h3>🧾 CURRENT BILL <span id="billNo">#1001</span></h3><span style="font-size:12px" id="dateNow"></span></div>
-      <p>Cashier: RAHUL • Counter 1 • F1 = Pay • F2 = Clear</p>
-      <div class="row2"><input id="custName" placeholder="👤 Customer Name"><input id="custPhone" placeholder="📞 Phone"></div>
+      <h3>🧾 CURRENT BILL <span id="billNo">#1001</span></h3><p>Cashier: RAHUL • Counter 1 • F1 = Pay</p>
+      <input id="custName" placeholder="👤 Customer Name (optional)">
+      <input id="custPhone" placeholder="📞 Phone (optional)">
       <div class="pay-tabs" id="payTabs">
         <button class="active" onclick="setPay('Cash',this)">💵 CASH</button>
         <button onclick="setPay('UPI',this)">📱 UPI</button>
         <button onclick="setPay('Card',this)">💳 CARD</button>
-        <button onclick="setPay('Credit',this)">📝 UDHAAR</button>
+        <button onclick="setPay('Udhaar',this)">📝 UDHAAR</button>
       </div>
     </div>
     <div class="bill-items" id="billItems"></div>
     <div class="summary">
-      <div class="srow"><span>Total Items</span><b id="itemCount">0 items</b></div>
-      <div class="srow"><span>Subtotal (MRP)</span><b id="mrpTotal">₹0</b></div>
-      <div class="srow"><span>Discount <input type="number" id="discount" value="0" min="0" max="80" oninput="renderBill()"> %</span><b id="discAmt" style="color:#16a34a">- ₹0</b></div>
+      <div class="srow"><span>Items</span><b id="itemCount">0 items</b></div>
+      <div class="srow"><span>MRP Total</span><b id="mrpTotal">₹0</b></div>
+      <div class="srow"><span>Extra Discount <input type="number" id="discount" value="0" min="0" max="80" oninput="renderBill()"> %</span><b id="discAmt" style="color:#16a34a">- ₹0</b></div>
       <div class="srow"><span>GST (18%)</span><b id="gstAmt">₹0</b></div>
-      <div class="srow"><span>Cash Given <input type="number" id="cashGiven" value="0" oninput="renderBill()" placeholder="0"></span><b id="returnAmt" style="color:#f59e0b">Return: ₹0</b></div>
+      <div class="srow"><span>Cash Diya <input type="number" id="cashGiven" value="0" oninput="renderBill()"></span><b id="returnAmt" style="color:#f59e0b">Return: ₹0</b></div>
       <div class="srow total"><span>TO PAY</span><span id="grandTotal">₹0</span></div>
-      <div class="quick-amt">
-        <button onclick="setCash(100)">₹100</button><button onclick="setCash(200)">₹200</button><button onclick="setCash(500)">₹500</button><button onclick="setCash(1000)">₹1000</button><button onclick="setCashExact()">Exact</button>
-      </div>
+      <div class="quick"><button onclick="setCash(100)">₹100</button><button onclick="setCash(200)">₹200</button><button onclick="setCash(500)">₹500</button><button onclick="setCash(1000)">₹1000</button><button onclick="setCashExact()">Exact</button></div>
       <div class="actions">
-        <button class="btn-hold" onclick="holdBill()">⏸️ HOLD</button>
-        <button class="btn-clear" onclick="clearBill()">🗑️ CLEAR</button>
-        <button class="btn-pay" onclick="generateBill()">✅ PAY & PRINT →</button>
+        <button onclick="holdBill()" style="background:#fef3c7;color:#92400e">⏸️ HOLD</button>
+        <button onclick="clearBill()" style="background:#fee2e2;color:#991b1b">🗑️ CLEAR</button>
+        <button onclick="generateBill()" style="background:#16a34a;color:white;font-size:15px">✅ PAY & PRINT →</button>
       </div>
-      <div class="bottom-actions">
-        <button onclick="openTickets()">📂 Saved Tickets</button>
-        <button onclick="restoreHold()">🔄 Hold Bill Wapas</button>
-        <button onclick="window.print()">🖨️ Last Bill Print</button>
-      </div>
+      <div class="bottom"><button onclick="openTickets()">📂 Saved Tickets</button><button onclick="restoreHold()">🔄 Hold Wapas</button></div>
     </div>
   </div>
 </div>
 
-<!-- RECEIPT -->
 <div class="modal" id="billModal">
   <div class="receipt-box">
     <div class="receipt" id="printArea">
-      <div style="text-align:center"><div style="font-size:34px">🛒</div><h2 style="font-family:Inter;font-size:24px">GUDU MART</h2><div style="font-size:11px;line-height:1.5;color:#444">Supermarket • Electronics • Grocery<br>Cornella de Llobregat, Barcelona<br>Ph: 900 123 456 • GSTIN: 22AAAAA0000A1Z5<br>FSSAI: 10012043001234</div></div>
+      <div style="text-align:center"><div style="font-size:34px">🛒</div><h2 style="font-family:Inter;font-size:24px">GUDU MART</h2><div style="font-size:11px;line-height:1.5;color:#444">Supermarket • Electronics • Grocery<br>Cornella de Llobregat, Barcelona<br>Ph: 900 123 456 • GSTIN: 22AAAAA0000A1Z5</div></div>
       <div class="dashed"></div>
       <div style="display:flex;justify-content:space-between;font-size:12px"><span>Bill No: <b id="rBillNo"></b></span><span id="rDate"></span></div>
-      <div style="font-size:12px;margin-top:4px">Customer: <b id="rCust"></b><br>Cashier: RAHUL • Counter: 1 • Pay: <b id="rPay"></b> • Cash: <span id="rCash"></span> • Return: <span id="rReturn"></span></div>
+      <div style="font-size:12px;margin-top:4px">Customer: <b id="rCust"></b><br>Cashier: RAHUL • Pay: <b id="rPay"></b> • Cash: <span id="rCash"></span> • Return: <span id="rReturn"></span></div>
       <div class="dashed"></div>
       <table><tr><th>ITEM</th><th style="text-align:center">QTY</th><th style="text-align:right">AMT</th></tr><tbody id="rItems"></tbody></table>
       <div class="dashed"></div>
       <div style="font-size:12px;line-height:1.9;text-align:right">MRP Total: <span id="rMrp"></span><br>Discount: <span id="rDisc"></span><br>GST (18%): <span id="rGst"></span><br><span style="font-size:17px;font-weight:800">TOTAL: <span id="rTotal"></span></span><br><span style="font-size:11px">You Saved: <span id="rSaved" style="color:#16a34a;font-weight:700"></span> 🎉</span></div>
       <div class="dashed"></div>
-      <div style="text-align:center;font-size:11px;line-height:1.6">*** THANK YOU • VISIT AGAIN ***<br>⭐⭐⭐⭐⭐ Rate Us On Google ⭐⭐⭐⭐⭐<br><br><div style="font-size:26px;letter-spacing:3px">|||| || |||| ||| ||</div><span id="rBarcode"></span><br><span style="color:#888">Computer Generated Bill • No Return Without Bill</span></div>
+      <div style="text-align:center;font-size:11px;line-height:1.6">*** THANK YOU • VISIT AGAIN ***<br>⭐⭐⭐⭐⭐ Rate Us On Google ⭐⭐⭐⭐⭐<br><br><div style="font-size:26px;letter-spacing:3px">|||| || |||| ||| ||</div><span id="rBarcode"></span></div>
     </div>
-    <div style="padding:0 16px 16px;display:flex;gap:8px"><button onclick="window.print()" style="flex:1;background:#0f172a;color:white;padding:14px;border:none;border-radius:12px;font-weight:800;cursor:pointer">🖨️ PRINT</button><button onclick="closeModal('billModal')" style="flex:1;background:#dcfce7;color:#166534;padding:14px;border:none;border-radius:12px;font-weight:800;cursor:pointer">DONE ✓ (Enter)</button></div>
+    <div style="padding:0 16px 16px;display:flex;gap:8px"><button onclick="window.print()" style="flex:1;background:#0f172a;color:white;padding:14px;border:none;border-radius:12px;font-weight:800;cursor:pointer">🖨️ PRINT</button><button onclick="closeModal('billModal')" style="flex:1;background:#dcfce7;color:#166534;padding:14px;border:none;border-radius:12px;font-weight:800;cursor:pointer">DONE ✓</button></div>
   </div>
 </div>
 
-<!-- TICKETS -->
 <div class="modal" id="ticketsModal">
-  <div class="receipt-box"><div style="padding:18px"><h2>📂 Saved Tickets / Bills</h2><p style="font-size:12px;color:#64748b;margin:6px 0 12px">Har bill yahan auto-save hota hai</p><input id="ticketSearch" placeholder="Search Bill No / Customer..." oninput="renderTickets()" style="width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:10px;margin-bottom:12px;outline:none"><div id="ticketsList"></div><button onclick="closeModal('ticketsModal')" style="width:100%;background:#0f172a;color:white;padding:12px;border-radius:12px;border:none;font-weight:700;cursor:pointer">Close</button></div></div>
+  <div class="receipt-box"><div style="padding:18px"><h2>📂 Saved Tickets</h2><input id="ticketSearch" placeholder="Search Bill No / Customer..." oninput="renderTickets()" style="width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:10px;margin:12px 0;outline:none"><div id="ticketsList"></div><button onclick="closeModal('ticketsModal')" style="width:100%;background:#0f172a;color:white;padding:12px;border-radius:12px;border:none;font-weight:700;cursor:pointer">Close</button></div></div>
 </div>
 
 <script>
 const BASE = [
- // ELECTRONICS - 22 Items
- {name:"iPhone 15 Pro 128GB",cat:"Electronics",price:129999,mrp:139999,emoji:"📱",kw:"iphone apple phone mobile ios"},
+ {name:"iPhone 15 Pro 128GB",cat:"Electronics",price:129999,mrp:139999,emoji:"📱",kw:"iphone apple phone"},
  {name:"iPhone 14 128GB",cat:"Electronics",price:59999,mrp:69999,emoji:"📱",kw:"iphone apple phone"},
  {name:"Samsung Galaxy S24 Ultra",cat:"Electronics",price:109999,mrp:129999,emoji:"📱",kw:"samsung galaxy phone"},
  {name:"Samsung Galaxy A55",cat:"Electronics",price:31999,mrp:39999,emoji:"📱",kw:"samsung phone"},
  {name:"Redmi Note 13 Pro",cat:"Electronics",price:24999,mrp:29999,emoji:"📱",kw:"redmi mi phone"},
- {name:"HP Laptop i5 15.6\" 8GB",cat:"Electronics",price:54990,mrp:62990,emoji:"💻",kw:"laptop hp computer"},
- {name:"Dell Laptop i7 16GB",cat:"Electronics",price:78990,mrp:89990,emoji:"💻",kw:"laptop dell computer"},
+ {name:"HP Laptop i5 15.6\"",cat:"Electronics",price:54990,mrp:62990,emoji:"💻",kw:"laptop hp computer"},
+ {name:"Dell Laptop i7 16GB",cat:"Electronics",price:78990,mrp:89990,emoji:"💻",kw:"laptop dell"},
  {name:"Lenovo IdeaPad Slim 3",cat:"Electronics",price:42990,mrp:49990,emoji:"💻",kw:"laptop lenovo"},
- {name:"Sony Headphones WH-1000XM5",cat:"Electronics",price:19990,mrp:29990,emoji:"🎧",kw:"headphone sony music"},
+ {name:"Sony Headphones XM5",cat:"Electronics",price:19990,mrp:29990,emoji:"🎧",kw:"headphone sony"},
  {name:"boAt Rockerz 550",cat:"Electronics",price:1999,mrp:3999,emoji:"🎧",kw:"boat headphone"},
- {name:"AirPods Pro 2nd Gen",cat:"Electronics",price:18999,mrp:22999,emoji:"🎧",kw:"airpods apple earbuds"},
+ {name:"AirPods Pro 2",cat:"Electronics",price:18999,mrp:22999,emoji:"🎧",kw:"airpods apple"},
  {name:"Smart TV 55\" 4K Samsung",cat:"Electronics",price:42999,mrp:59999,emoji:"📺",kw:"tv television samsung"},
- {name:"LG TV 43\" Full HD",cat:"Electronics",price:27999,mrp:34999,emoji:"📺",kw:"tv lg television"},
+ {name:"LG TV 43\" Full HD",cat:"Electronics",price:27999,mrp:34999,emoji:"📺",kw:"tv lg"},
  {name:"Mi Smart Watch",cat:"Electronics",price:2999,mrp:4999,emoji:"⌚",kw:"watch smartwatch ghadi"},
  {name:"Apple Watch Series 9",cat:"Electronics",price:41999,mrp:45999,emoji:"⌚",kw:"apple watch"},
- {name:"Canon Camera EOS 1500D",cat:"Electronics",price:45990,mrp:52990,emoji:"📷",kw:"camera canon photo"},
- {name:"JBL Bluetooth Speaker Flip 6",cat:"Electronics",price:7999,mrp:10999,emoji:"🔊",kw:"jbl speaker bluetooth"},
- {name:"iPad 10th Gen 64GB",cat:"Electronics",price:32900,mrp:37900,emoji:"📱",kw:"ipad tablet apple"},
- {name:"Fast Charger 65W Type-C",cat:"Electronics",price:1499,mrp:1999,emoji:"🔌",kw:"charger cable charging"},
- {name:"Wireless Mouse + Keyboard",cat:"Electronics",price:1299,mrp:1999,emoji:"⌨️",kw:"mouse keyboard"},
+ {name:"Canon Camera EOS",cat:"Electronics",price:45990,mrp:52990,emoji:"📷",kw:"camera canon"},
+ {name:"JBL Speaker Flip 6",cat:"Electronics",price:7999,mrp:10999,emoji:"🔊",kw:"jbl speaker"},
+ {name:"iPad 10th Gen",cat:"Electronics",price:32900,mrp:37900,emoji:"📱",kw:"ipad tablet apple"},
+ {name:"Fast Charger 65W",cat:"Electronics",price:1499,mrp:1999,emoji:"🔌",kw:"charger cable"},
+ {name:"Mouse + Keyboard",cat:"Electronics",price:1299,mrp:1999,emoji:"⌨️",kw:"mouse keyboard"},
  {name:"LED Bulb 9W Pack of 4",cat:"Electronics",price:499,mrp:799,emoji:"💡",kw:"bulb light led"},
  {name:"Ceiling Fan 1200mm",cat:"Electronics",price:2199,mrp:2999,emoji:"🌀",kw:"fan pankha"},
- // GROCERY - 20 Items
  {name:"Amul Milk 1 Litre",cat:"Grocery",price:58,mrp:60,emoji:"🥛",kw:"milk dudh doodh amul"},
  {name:"Basmati Rice 5kg",cat:"Grocery",price:499,mrp:649,emoji:"🍚",kw:"rice chawal basmati"},
- {name:"Atta 10kg Aashirvaad",cat:"Grocery",price:399,mrp:475,emoji:"🌾",kw:"atta aata flour"},
- {name:"Fortune Oil 1 Litre",cat:"Grocery",price:145,mrp:180,emoji:"🫒",kw:"oil tel cooking fortune"},
+ {name:"Atta 10kg",cat:"Grocery",price:399,mrp:475,emoji:"🌾",kw:"atta aata flour"},
+ {name:"Fortune Oil 1L",cat:"Grocery",price:145,mrp:180,emoji:"🫒",kw:"oil tel"},
  {name:"Maggi Noodles 12 Pack",cat:"Grocery",price:144,mrp:168,emoji:"🍜",kw:"maggi noodles"},
- {name:"Tata Salt 1kg",cat:"Grocery",price:28,mrp:32,emoji:"🧂",kw:"salt namak tata"},
- {name:"Sugar 5kg",cat:"Grocery",price:220,mrp:260,emoji:"🍬",kw:"sugar chini cheeni"},
- {name:"Tea Powder 500g Tata Gold",cat:"Grocery",price:245,mrp:290,emoji:"🍵",kw:"tea chai powder"},
- {name:"Coffee Powder 200g Nescafe",cat:"Grocery",price:285,mrp:320,emoji:"☕",kw:"coffee nescafe"},
- {name:"Toor Dal 1kg",cat:"Grocery",price:175,mrp:210,emoji:"🥣",kw:"dal toor arhar"},
+ {name:"Tata Salt 1kg",cat:"Grocery",price:28,mrp:32,emoji:"🧂",kw:"salt namak"},
+ {name:"Sugar 5kg",cat:"Grocery",price:220,mrp:260,emoji:"🍬",kw:"sugar chini"},
+ {name:"Tea Powder 500g",cat:"Grocery",price:245,mrp:290,emoji:"🍵",kw:"tea chai"},
+ {name:"Coffee Powder 200g",cat:"Grocery",price:285,mrp:320,emoji:"☕",kw:"coffee nescafe"},
+ {name:"Toor Dal 1kg",cat:"Grocery",price:175,mrp:210,emoji:"🥣",kw:"dal toor"},
  {name:"Chana Dal 1kg",cat:"Grocery",price:85,mrp:105,emoji:"🥣",kw:"dal chana"},
- {name:"Haldi Powder 500g",cat:"Grocery",price:145,mrp:170,emoji:"🟡",kw:"haldi turmeric masala"},
- {name:"Red Chilli Powder 500g",cat:"Grocery",price:195,mrp:230,emoji:"🌶️",kw:"mirchi chilli masala"},
+ {name:"Haldi Powder 500g",cat:"Grocery",price:145,mrp:170,emoji:"🟡",kw:"haldi masala"},
+ {name:"Red Chilli Powder 500g",cat:"Grocery",price:195,mrp:230,emoji:"🌶️",kw:"mirchi chilli"},
  {name:"Garam Masala 100g",cat:"Grocery",price:85,mrp:105,emoji:"🧂",kw:"masala garam"},
  {name:"Ghee 1 Litre Amul",cat:"Grocery",price:620,mrp:680,emoji:"🫙",kw:"ghee amul"},
  {name:"Peanut Butter 1kg",cat:"Grocery",price:399,mrp:499,emoji:"🥜",kw:"peanut butter"},
  {name:"Honey 1kg Dabur",cat:"Grocery",price:299,mrp:349,emoji:"🍯",kw:"honey shahad"},
- {name:"Ketchup 1kg Heinz",cat:"Grocery",price:145,mrp:175,emoji:"🍅",kw:"ketchup sauce tomato"},
- {name:"Soya Sauce 500ml",cat:"Grocery",price:95,mrp:120,emoji:"🫙",kw:"soya sauce"},
+ {name:"Ketchup 1kg",cat:"Grocery",price:145,mrp:175,emoji:"🍅",kw:"ketchup sauce"},
  {name:"Pasta 500g",cat:"Grocery",price:85,mrp:105,emoji:"🍝",kw:"pasta"},
- // DAIRY & BAKERY - 16 Items
  {name:"Amul Butter 500g",cat:"Dairy",price:285,mrp:310,emoji:"🧈",kw:"butter makhan amul"},
- {name:"Amul Cheese Slices 200g",cat:"Dairy",price:135,mrp:155,emoji:"🧀",kw:"cheese paneer amul"},
+ {name:"Amul Cheese 200g",cat:"Dairy",price:135,mrp:155,emoji:"🧀",kw:"cheese paneer"},
  {name:"Paneer 500g",cat:"Dairy",price:145,mrp:165,emoji:"🧀",kw:"paneer cheese"},
- {name:"Brown Bread 400g",cat:"Dairy",price:40,mrp:50,emoji:"🍞",kw:"bread pav roti"},
+ {name:"Brown Bread 400g",cat:"Dairy",price:40,mrp:50,emoji:"🍞",kw:"bread pav"},
  {name:"White Bread 400g",cat:"Dairy",price:30,mrp:35,emoji:"🍞",kw:"bread"},
  {name:"Eggs 12 pcs",cat:"Dairy",price:84,mrp:96,emoji:"🥚",kw:"eggs anda"},
  {name:"Curd 1kg Amul",cat:"Dairy",price:95,mrp:110,emoji:"🥛",kw:"curd dahi"},
  {name:"Chocolate Cake 500g",cat:"Dairy",price:299,mrp:349,emoji:"🎂",kw:"cake chocolate bakery"},
- {name:"Pav Bhaji Pav 6 pcs",cat:"Dairy",price:35,mrp:40,emoji:"🍞",kw:"pav bhaji"},
- {name:"Croissant 4 pcs",cat:"Dairy",price:120,mrp:150,emoji:"🥐",kw:"croissant bakery"},
  {name:"Biscuit Parle-G 800g",cat:"Dairy",price:70,mrp:85,emoji:"🍪",kw:"biscuit parle"},
- {name:"Oreo Biscuit Family Pack",cat:"Dairy",price:99,mrp:120,emoji:"🍪",kw:"oreo biscuit chocolate"},
+ {name:"Oreo Family Pack",cat:"Dairy",price:99,mrp:120,emoji:"🍪",kw:"oreo biscuit"},
  {name:"Yogurt 500g",cat:"Dairy",price:65,mrp:80,emoji:"🥛",kw:"yogurt dahi"},
- {name:"Ice Cream 1L Vanilla",cat:"Dairy",price:199,mrp:249,emoji:"🍦",kw:"ice cream vanilla"},
- {name:"Ice Cream 1L Chocolate",cat:"Dairy",price:229,mrp:279,emoji:"🍦",kw:"ice cream chocolate"},
- {name:"Milkshake 500ml",cat:"Dairy",price:85,mrp:100,emoji:"🥤",kw:"milkshake"},
- // SNACKS & DRINKS - 22 Items
- {name:"Lays Chips 150g Classic",cat:"Snacks",price:50,mrp:60,emoji:"🥔",kw:"lays chips snacks"},
+ {name:"Ice Cream Vanilla 1L",cat:"Dairy",price:199,mrp:249,emoji:"🍦",kw:"ice cream vanilla"},
+ {name:"Ice Cream Chocolate 1L",cat:"Dairy",price:229,mrp:279,emoji:"🍦",kw:"ice cream chocolate"},
+ {name:"Lays Chips 150g",cat:"Snacks",price:50,mrp:60,emoji:"🥔",kw:"lays chips"},
  {name:"Kurkure 150g",cat:"Snacks",price:40,mrp:50,emoji:"🥔",kw:"kurkure snacks"},
- {name:"Dairy Milk Silk 150g",cat:"Snacks",price:150,mrp:175,emoji:"🍫",kw:"chocolate dairy milk silk"},
+ {name:"Dairy Milk Silk 150g",cat:"Snacks",price:150,mrp:175,emoji:"🍫",kw:"chocolate dairy milk"},
  {name:"KitKat 4 Finger",cat:"Snacks",price:40,mrp:45,emoji:"🍫",kw:"kitkat chocolate"},
  {name:"Coca Cola 2 Litre",cat:"Snacks",price:95,mrp:110,emoji:"🥤",kw:"coke cola cold drink"},
  {name:"Pepsi 1.5 Litre",cat:"Snacks",price:65,mrp:80,emoji:"🥤",kw:"pepsi cold drink"},
  {name:"Fanta Orange 1.5L",cat:"Snacks",price:60,mrp:75,emoji:"🥤",kw:"fanta orange drink"},
  {name:"Sprite 1.5L",cat:"Snacks",price:60,mrp:75,emoji:"🥤",kw:"sprite drink"},
  {name:"Red Bull 250ml",cat:"Snacks",price:125,mrp:140,emoji:"🥤",kw:"red bull energy drink"},
- {name:"Orange Juice 1L Real",cat:"Snacks",price:110,mrp:130,emoji:"🧃",kw:"juice orange real"},
+ {name:"Orange Juice 1L",cat:"Snacks",price:110,mrp:130,emoji:"🧃",kw:"juice orange"},
  {name:"Mango Juice 1L",cat:"Snacks",price:105,mrp:125,emoji:"🧃",kw:"juice mango"},
- {name:"Water Bottle 1L Bisleri",cat:"Snacks",price:20,mrp:20,emoji:"💧",kw:"water pani bisleri"},
+ {name:"Water Bottle 1L",cat:"Snacks",price:20,mrp:20,emoji:"💧",kw:"water pani bisleri"},
  {name:"Namkeen Mixture 500g",cat:"Snacks",price:95,mrp:120,emoji:"🥜",kw:"namkeen mixture"},
  {name:"Popcorn Caramel 200g",cat:"Snacks",price:85,mrp:105,emoji:"🍿",kw:"popcorn"},
- {name:"Chips Doritos 150g",cat:"Snacks",price:70,mrp:90,emoji:"🥔",kw:"doritos chips"},
- {name:"Protein Bar 6 Pack",cat:"Snacks",price:299,mrp:399,emoji:"🍫",kw:"protein bar gym"},
- {name:"Dry Fruits Almond 500g",cat:"Snacks",price:399,mrp:499,emoji:"🥜",kw:"almond badam dry fruits"},
+ {name:"Doritos 150g",cat:"Snacks",price:70,mrp:90,emoji:"🥔",kw:"doritos chips"},
+ {name:"Almond 500g",cat:"Snacks",price:399,mrp:499,emoji:"🥜",kw:"almond badam dry fruits"},
  {name:"Cashew 500g",cat:"Snacks",price:449,mrp:549,emoji:"🥜",kw:"cashew kaju"},
  {name:"Raisins 500g",cat:"Snacks",price:185,mrp:220,emoji:"🍇",kw:"raisins kishmish"},
- {name:"Chana Roasted 500g",cat:"Snacks",price:95,mrp:120,emoji:"🥜",kw:"chana roasted"},
- {name:"Energy Drink Monster 500ml",cat:"Snacks",price:145,mrp:165,emoji:"🥤",kw:"monster energy drink"},
- {name:"Green Tea 100 Bags",cat:"Snacks",price:299,mrp:349,emoji:"🍵",kw:"green tea"},
- // FRUITS & VEG - 14 Items
  {name:"Banana 1 Dozen",cat:"Fruits",price:45,mrp:60,emoji:"🍌",kw:"banana kela fruit"},
- {name:"Apple 1kg Shimla",cat:"Fruits",price:180,mrp:220,emoji:"🍎",kw:"apple seb fruit"},
+ {name:"Apple 1kg",cat:"Fruits",price:180,mrp:220,emoji:"🍎",kw:"apple seb fruit"},
  {name:"Orange 1kg",cat:"Fruits",price:90,mrp:120,emoji:"🍊",kw:"orange santra fruit"},
- {name:"Mango 1kg Alphonso",cat:"Fruits",price:220,mrp:280,emoji:"🥭",kw:"mango aam fruit"},
+ {name:"Mango 1kg",cat:"Fruits",price:220,mrp:280,emoji:"🥭",kw:"mango aam fruit"},
  {name:"Grapes 500g",cat:"Fruits",price:85,mrp:110,emoji:"🍇",kw:"grapes angoor fruit"},
  {name:"Potato 5kg",cat:"Fruits",price:125,mrp:150,emoji:"🥔",kw:"potato aloo vegetable"},
  {name:"Onion 5kg",cat:"Fruits",price:145,mrp:175,emoji:"🧅",kw:"onion pyaz vegetable"},
  {name:"Tomato 2kg",cat:"Fruits",price:60,mrp:80,emoji:"🍅",kw:"tomato tamatar vegetable"},
- {name:"Cauliflower 1 pc",cat:"Fruits",price:45,mrp:60,emoji:"🥦",kw:"cauliflower gobhi vegetable"},
- {name:"Carrot 1kg",cat:"Fruits",price:45,mrp:60,emoji:"🥕",kw:"carrot gajar vegetable"},
+ {name:"Cauliflower 1 pc",cat:"Fruits",price:45,mrp:60,emoji:"🥦",kw:"cauliflower gobhi"},
+ {name:"Carrot 1kg",cat:"Fruits",price:45,mrp:60,emoji:"🥕",kw:"carrot gajar"},
  {name:"Cucumber 1kg",cat:"Fruits",price:35,mrp:50,emoji:"🥒",kw:"cucumber kheera"},
  {name:"Lemon 500g",cat:"Fruits",price:55,mrp:70,emoji:"🍋",kw:"lemon nimbu"},
  {name:"Garlic 500g",cat:"Fruits",price:145,mrp:175,emoji:"🧄",kw:"garlic lahsun"},
  {name:"Ginger 500g",cat:"Fruits",price:85,mrp:110,emoji:"🫚",kw:"ginger adrak"},
- // HOME CARE - 14 Items
  {name:"Dettol Soap 100g x4",cat:"Home Care",price:165,mrp:200,emoji:"🧼",kw:"soap sabun dettol"},
  {name:"Surf Excel 1kg",cat:"Home Care",price:199,mrp:240,emoji:"🧺",kw:"surf detergent washing"},
  {name:"Colgate Toothpaste 200g",cat:"Home Care",price:115,mrp:140,emoji:"🪥",kw:"colgate toothpaste"},
  {name:"Shampoo 650ml Dove",cat:"Home Care",price:299,mrp:379,emoji:"🧴",kw:"shampoo dove hair"},
  {name:"Hair Oil 500ml",cat:"Home Care",price:185,mrp:220,emoji:"🧴",kw:"hair oil tel"},
  {name:"Face Wash 150ml",cat:"Home Care",price:165,mrp:200,emoji:"🧴",kw:"face wash"},
- {name:"Toilet Cleaner 1L Harpic",cat:"Home Care",price:185,mrp:220,emoji:"🧻",kw:"harpic toilet cleaner"},
+ {name:"Harpic Toilet Cleaner 1L",cat:"Home Care",price:185,mrp:220,emoji:"🧻",kw:"harpic toilet cleaner"},
  {name:"Floor Cleaner 1L",cat:"Home Care",price:165,mrp:200,emoji:"🧹",kw:"floor cleaner"},
  {name:"Dishwash Liquid 500ml",cat:"Home Care",price:135,mrp:160,emoji:"🍽️",kw:"dishwash vim"},
  {name:"Tissue Paper 6 Rolls",cat:"Home Care",price:195,mrp:240,emoji:"🧻",kw:"tissue paper"},
- {name:"Diapers L Size 30 pcs",cat:"Home Care",price:499,mrp:599,emoji:"👶",kw:"diaper baby"},
+ {name:"Diapers L 30 pcs",cat:"Home Care",price:499,mrp:599,emoji:"👶",kw:"diaper baby"},
  {name:"Sanitary Pads 12 pcs",cat:"Home Care",price:145,mrp:175,emoji:"🩹",kw:"sanitary pads"},
  {name:"Mosquito Repellent",cat:"Home Care",price:85,mrp:105,emoji:"🦟",kw:"mosquito all out"},
  {name:"Room Freshener Spray",cat:"Home Care",price:175,mrp:210,emoji:"🌸",kw:"freshener spray"},
@@ -297,41 +267,39 @@ const BASE = [
 let customProducts = JSON.parse(localStorage.getItem('gudu_custom_products')||'[]');
 let allProducts = BASE.map((p,i)=>({...p,id:i+1,barcode:'8901'+String(100000+i)}));
 customProducts.forEach((p,idx)=> allProducts.push({...p,id:1000+idx,barcode:'8909'+String(100000+idx)}));
-const CATS = [
- {name:"All",emoji:"🛒"},{name:"Electronics",emoji:"📱"},{name:"Grocery",emoji:"🛍️"},{name:"Dairy",emoji:"🥛"},{name:"Snacks",emoji:"🍫"},{name:"Fruits",emoji:"🍎"},{name:"Home Care",emoji:"🧼"}
-];
+const CATS=[{name:"All",emoji:"🛒"},{name:"Electronics",emoji:"📱"},{name:"Grocery",emoji:"🛍️"},{name:"Dairy",emoji:"🥛"},{name:"Snacks",emoji:"🍫"},{name:"Fruits",emoji:"🍎"},{name:"Home Care",emoji:"🧼"}];
 let activeCat="All", cart=[], payMethod="Cash", holdBill=null;
 let tickets = JSON.parse(localStorage.getItem('gudu_tickets')||'[]');
 let billCounter = parseInt(localStorage.getItem('gudu_bill_no')||'1001');
 function fmt(n){ return "₹"+Math.round(n).toLocaleString('en-IN'); }
 function renderCats(){ document.getElementById('cats').innerHTML = CATS.map(c=>`<div class="cat-btn ${c.name===activeCat?'active':''}" onclick="setCat('${c.name}')"><span class="e">${c.emoji}</span><b>${c.name}</b><small>${c.name==='All'?allProducts.length:allProducts.filter(p=>p.cat===c.name).length} items</small></div>`).join(''); }
 function setCat(c){ activeCat=c; renderCats(); renderProducts(); }
-function onSearch(){ let v=document.getElementById('searchInput').value; document.getElementById('clearBtn').style.display=v?'block':'none'; renderProducts(); }
-function clearSearch(){ document.getElementById('searchInput').value=''; document.getElementById('clearBtn').style.display='none'; renderProducts(); }
+function onSearch(){ renderProducts(); }
+function clearSearch(){ document.getElementById('searchInput').value=''; renderProducts(); }
 function renderProducts(){
   let q=document.getElementById('searchInput').value.trim().toLowerCase();
   document.getElementById('statProducts').innerText=allProducts.length;
   let list=allProducts.filter(p=>{
     if(activeCat!=="All" && p.cat!==activeCat) return false;
     if(!q) return true;
-    let searchIn=(p.name+" "+(p.kw||"")+" "+p.cat+" "+p.barcode).toLowerCase();
-    return q.split(/\s+/).every(w=>searchIn.includes(w));
+    let s=(p.name+" "+(p.kw||"")+" "+p.cat+" "+p.barcode).toLowerCase();
+    return q.split(/\s+/).every(w=>s.includes(w));
   });
-  if(list.length===0){ document.getElementById('products').innerHTML=`<div style="grid-column:1/-1;background:white;border:2px dashed #f59e0b;border-radius:16px;padding:24px;text-align:center"><div style="font-size:40px">🔍</div><h3>"${document.getElementById('searchInput').value}" nahi mila</h3><p style="font-size:13px;color:#64748b;margin:6px 0">Spelling check karo ya naya product add karo</p><button onclick="addCustomProductPrompt('${document.getElementById('searchInput').value}')" style="background:#f59e0b;color:white;border:none;padding:12px 18px;border-radius:12px;font-weight:800;cursor:pointer">+ New Product Banao</button><br><button onclick="clearSearch()" style="background:#0f172a;color:white;border:none;padding:10px 16px;border-radius:12px;margin-top:8px;font-weight:700;cursor:pointer">Clear Search</button></div>`; return; }
-  document.getElementById('searchHint').innerHTML=q?`Showing <b>${list.length}</b> results for "<b>${q}</b>" • <span onclick="clearSearch()" style="color:#16a34a;font-weight:800;cursor:pointer">Clear ✕</span>`:`<b>${allProducts.length} Products</b> • Tip: <b>iph</b> → iPhone, <b>dudh</b> → Milk, <b>chi</b> → Chips • Barcode bhi type karo`;
+  // PEHLE JAISA - SAB DIKHEGA, SEARCH SIRF FILTER KAREGA
+  document.getElementById('searchHint').innerHTML = q ? `Showing <b>${list.length}</b> results for "<b>${q}</b>" • <span onclick="clearSearch()" style="color:#16a34a;font-weight:800;cursor:pointer">Clear karke Sab Dekho ✕</span>` : `👇 <b>${list.length} Products dikh rahe hai</b> - bas click karo, bill me add ho jayega. Category dabao to filter ho jayega.`;
+  if(list.length===0){ document.getElementById('products').innerHTML=`<div style="grid-column:1/-1;background:white;border:2px dashed #f59e0b;border-radius:16px;padding:24px;text-align:center"><h3>"${document.getElementById('searchInput').value}" nahi mila</h3><button onclick="addCustomProductPrompt('${document.getElementById('searchInput').value}')" style="background:#f59e0b;color:white;border:none;padding:12px 18px;border-radius:12px;font-weight:800;margin-top:10px;cursor:pointer">+ New Product Banao</button><br><button onclick="clearSearch()" style="background:#0f172a;color:white;border:none;padding:10px 16px;border-radius:12px;margin-top:8px;font-weight:700;cursor:pointer">Sab Products Wapas Dekho</button></div>`; return; }
   document.getElementById('products').innerHTML=list.map(p=>{
     let off=Math.round((1-p.price/p.mrp)*100);
-    return `<div class="p-card" onclick="addToCart(${p.id})"><div class="top"><span class="emoji">${p.emoji}</span>${off>0?`<span class="off">${off}% OFF</span>`:''}</div><h4>${p.name}</h4><div class="barcode">BAR: ${p.barcode} • <span class="cat-tag">${p.cat}</span></div><div class="price-row"><span class="price">${fmt(p.price)}</span><span class="mrp">${fmt(p.mrp)}</span></div><div class="stock">Stock: ${Math.floor(Math.random()*40)+10} • You Save ${fmt(p.mrp-p.price)}</div><div class="add">+ ADD <span>→</span></div></div>`;
+    return `<div class="p-card" onclick="addToCart(${p.id})"><div class="top"><span class="emoji">${p.emoji}</span>${off>0?`<span class="off">${off}% OFF</span>`:''}</div><h4>${p.name}</h4><div class="barcode">BAR: ${p.barcode} • ${p.cat}</div><div class="price-row"><span class="price">${fmt(p.price)}</span><span class="mrp">${fmt(p.mrp)}</span></div><div class="save">You Save ${fmt(p.mrp-p.price)}</div><div class="add">+ ADD →</div></div>`;
   }).join('');
 }
-function addCustomProductPrompt(prefill=""){ let name=prompt("Product Naam:",prefill); if(!name) return; let price=parseInt(prompt("Selling Price (₹):","99")); if(!price) return; let mrp=parseInt(prompt("MRP (₹):",String(price+20))); let cat=prompt("Category (Electronics/Grocery/Dairy/Snacks/Fruits/Home Care):","Grocery")||"Grocery"; let emoji=prompt("Emoji:","📦")||"📦"; let np={name,cat,price,mrp,emoji,kw:name.toLowerCase()}; customProducts.push(np); allProducts.push({...np,id:1000+customProducts.length,barcode:'8909'+String(100000+customProducts.length)}); localStorage.setItem('gudu_custom_products',JSON.stringify(customProducts)); alert("✅ Product Add Ho Gaya!"); renderCats(); renderProducts(); }
-function barcodePrompt(){ let code=prompt("Barcode Scan / Type Karo:"); if(!code) return; let p=allProducts.find(x=>x.barcode===code || x.name.toLowerCase().includes(code.toLowerCase())); if(p){ addToCart(p.id); } else alert("Barcode nahi mila: "+code); }
+function addCustomProductPrompt(prefill=""){ let name=prompt("Product Naam:",prefill); if(!name) return; let price=parseInt(prompt("Selling Price (₹):","99")); if(!price) return; let mrp=parseInt(prompt("MRP (₹):",String(price+20))); let cat=prompt("Category:","Grocery")||"Grocery"; let emoji=prompt("Emoji:","📦")||"📦"; let np={name,cat,price,mrp,emoji,kw:name.toLowerCase()}; customProducts.push(np); allProducts.push({...np,id:1000+customProducts.length,barcode:'8909'+String(100000+customProducts.length)}); localStorage.setItem('gudu_custom_products',JSON.stringify(customProducts)); alert("✅ Product Add Ho Gaya!"); renderCats(); renderProducts(); }
 function addToCart(id){ let f=cart.find(c=>c.id===id); if(f) f.qty++; else cart.push({id,qty:1}); renderBill(); if(window.innerWidth<900) document.getElementById('cartPanel').classList.add('open'); }
 function changeQty(id,d){ let f=cart.find(c=>c.id===id); if(!f) return; f.qty+=d; if(f.qty<=0) cart=cart.filter(c=>c.id!==id); renderBill(); }
 function removeItem(id){ cart=cart.filter(c=>c.id!==id); renderBill(); }
 function clearBill(){ cart=[]; document.getElementById('custName').value=''; document.getElementById('custPhone').value=''; document.getElementById('discount').value=0; document.getElementById('cashGiven').value=0; renderBill(); }
-function holdBill(){ if(cart.length===0){ alert("Bill khali hai!"); return; } holdBill=JSON.parse(JSON.stringify(cart)); alert("⏸️ Bill Hold Ho Gaya! Ab naya customer ka bill banao. Wapas lane ke liye 'Hold Bill Wapas' dabao."); clearBill(); }
-function restoreHold(){ if(!holdBill){ alert("Koi Hold Bill nahi hai!"); return; } cart=holdBill; holdBill=null; renderBill(); alert("✅ Hold Bill Wapas Aa Gaya!"); }
+function holdBill(){ if(cart.length===0){ alert("Bill khali hai!"); return; } holdBill=JSON.parse(JSON.stringify(cart)); alert("⏸️ Bill Hold Ho Gaya!"); clearBill(); }
+function restoreHold(){ if(!holdBill){ alert("Koi Hold Bill nahi hai!"); return; } cart=holdBill; holdBill=null; renderBill(); }
 function setPay(m,el){ payMethod=m; document.querySelectorAll('#payTabs button').forEach(b=>b.classList.remove('active')); el.classList.add('active'); }
 function setCash(v){ document.getElementById('cashGiven').value=v; renderBill(); }
 function setCashExact(){ let t=calcTotals(); document.getElementById('cashGiven').value=Math.round(t.total); renderBill(); }
@@ -350,12 +318,12 @@ function renderBill(){
   document.getElementById('itemCount').innerText=cart.reduce((s,c)=>s+c.qty,0)+" items";
   document.getElementById('billNo').innerText="#"+billCounter;
   document.getElementById('mrpTotal').innerText=fmt(t.mrp);
-  document.getElementById('discAmt').innerText="- "+fmt(t.discAmt + (t.mrp-t.sub));
+  document.getElementById('discAmt').innerText="- "+fmt(t.discAmt+(t.mrp-t.sub));
   document.getElementById('gstAmt').innerText=fmt(t.gst);
   document.getElementById('grandTotal').innerText=fmt(t.total);
   document.getElementById('returnAmt').innerText="Return: "+fmt(t.ret);
-  if(cart.length===0){ document.getElementById('billItems').innerHTML=`<div style="text-align:center;color:#94a3b8;padding:50px 10px"><div style="font-size:50px">🧾</div><b style="color:#0f172a;font-size:16px">Bill Empty Hai</b><br>Left se kisi product pe click karo<br><span style="font-size:12px">ya Barcode Scan karo</span></div>`; return; }
-  document.getElementById('billItems').innerHTML=cart.map(c=>{ let p=allProducts.find(x=>x.id===c.id); if(!p) return ''; return `<div class="bill-item"><div class="ic">${p.emoji}</div><div class="info"><b>${p.name}</b><span>${fmt(p.price)} x ${c.qty} = ${fmt(p.price*c.qty)} • Save ${fmt((p.mrp-p.price)*c.qty)}</span></div><div class="qty"><button onclick="changeQty(${p.id},-1)">-</button><b>${c.qty}</b><button onclick="changeQty(${p.id},1)">+</button></div><button onclick="removeItem(${p.id})" style="background:none;border:none;color:#ef4444;font-size:20px;cursor:pointer">×</button></div>`; }).join('');
+  if(cart.length===0){ document.getElementById('billItems').innerHTML=`<div style="text-align:center;color:#94a3b8;padding:50px 10px"><div style="font-size:50px">🧾</div><b style="color:#0f172a">Bill Empty Hai</b><br>Left se product pe click karo</div>`; return; }
+  document.getElementById('billItems').innerHTML=cart.map(c=>{ let p=allProducts.find(x=>x.id===c.id); if(!p) return ''; return `<div class="bill-item"><div class="ic">${p.emoji}</div><div class="info"><b>${p.name}</b><span>${fmt(p.price)} x ${c.qty} = ${fmt(p.price*c.qty)}</span></div><div class="qty"><button onclick="changeQty(${p.id},-1)">-</button><b>${c.qty}</b><button onclick="changeQty(${p.id},1)">+</button></div><button onclick="removeItem(${p.id})" style="background:none;border:none;color:#ef4444;font-size:20px;cursor:pointer">×</button></div>`; }).join('');
 }
 function generateBill(){
   if(cart.length===0){ alert("Pehle product add karo!"); return; }
@@ -375,8 +343,8 @@ function renderTickets(){
   let q=(document.getElementById('ticketSearch')?.value||'').toLowerCase();
   let list=tickets.filter(t=>t.customer.toLowerCase().includes(q)||String(t.id).includes(q));
   document.getElementById('ticketCountTop').innerText=tickets.length;
-  if(list.length===0){ document.getElementById('ticketsList').innerHTML=`<p style="text-align:center;color:#94a3b8;padding:20px">No tickets yet<br>Bill banao, yahan save hoga</p>`; return; }
-  document.getElementById('ticketsList').innerHTML=list.map(t=>`<div style="border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center"><div><b>Bill #${t.id} - ${t.customer}</b><br><span style="font-size:12px;color:#64748b">${t.date} • ${t.items.length} items • ${t.pay}</span></div><div style="text-align:right"><b style="color:#16a34a">${fmt(t.total)}</b><br><button onclick="viewTicket(${t.id})" style="background:#dcfce7;color:#166534;border:none;padding:7px 12px;border-radius:20px;font-weight:700;margin-top:6px;cursor:pointer">View / Print</button></div></div>`).join('');
+  if(list.length===0){ document.getElementById('ticketsList').innerHTML=`<p style="text-align:center;color:#94a3b8;padding:20px">No tickets yet</p>`; return; }
+  document.getElementById('ticketsList').innerHTML=list.map(t=>`<div style="border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center"><div><b>Bill #${t.id} - ${t.customer}</b><br><span style="font-size:12px;color:#64748b">${t.date} • ${t.pay}</span></div><div style="text-align:right"><b style="color:#16a34a">${fmt(t.total)}</b><br><button onclick="viewTicket(${t.id})" style="background:#dcfce7;color:#166534;border:none;padding:7px 12px;border-radius:20px;font-weight:700;margin-top:6px;cursor:pointer">View / Print</button></div></div>`).join('');
 }
 function viewTicket(id){
   let bill=tickets.find(t=>t.id===id); if(!bill) return;
@@ -385,22 +353,11 @@ function viewTicket(id){
   document.getElementById('rMrp').innerText=fmt(bill.mrp); document.getElementById('rDisc').innerText="-"+fmt(bill.disc); document.getElementById('rGst').innerText=fmt(bill.gst); document.getElementById('rTotal').innerText=fmt(bill.total); document.getElementById('rSaved').innerText=fmt(bill.disc);
   closeModal('ticketsModal'); document.getElementById('billModal').classList.add('show');
 }
-function updateStats(){
-  document.getElementById('statSale').innerText=fmt(tickets.reduce((s,t)=>s+t.total,0));
-  document.getElementById('statBills').innerText=tickets.length;
-  document.getElementById('statItems').innerText=tickets.reduce((s,t)=>s+t.items.reduce((a,i)=>a+i.qty,0),0);
-  document.getElementById('statSaved').innerText=fmt(tickets.reduce((s,t)=>s+t.disc,0));
-  document.getElementById('ticketCountTop').innerText=tickets.length;
-}
+function updateStats(){ document.getElementById('statSale').innerText=fmt(tickets.reduce((s,t)=>s+t.total,0)); document.getElementById('statBills').innerText=tickets.length; document.getElementById('statSaved').innerText=fmt(tickets.reduce((s,t)=>s+t.disc,0)); document.getElementById('ticketCountTop').innerText=tickets.length; }
 function closeModal(id){ document.getElementById(id).classList.remove('show'); }
 function toggleCart(){ document.getElementById('cartPanel').classList.toggle('open'); }
-document.addEventListener('keydown',e=>{
-  if(e.key==='F1'){ e.preventDefault(); generateBill(); }
-  if(e.key==='F2'){ e.preventDefault(); clearBill(); }
-  if(e.key==='Enter' && document.getElementById('billModal').classList.contains('show')) closeModal('billModal');
-});
+document.addEventListener('keydown',e=>{ if(e.key==='F1'){ e.preventDefault(); generateBill(); } if(e.key==='F2'){ e.preventDefault(); clearBill(); } if(e.key==='Enter' && document.getElementById('billModal').classList.contains('show')) closeModal('billModal'); });
 setInterval(()=>{ document.getElementById('clock').innerText=new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}); },1000);
-document.getElementById('dateNow').innerText=new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short'});
 renderCats(); renderProducts(); renderBill(); updateStats(); renderTickets();
 </script>
 </body>
